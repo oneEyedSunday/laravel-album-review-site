@@ -96,6 +96,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('admin.landing') }}">Home</a></li>
                                     <li>
                                         <a href="{{ route('account')}}">Account</a>
                                     </li>

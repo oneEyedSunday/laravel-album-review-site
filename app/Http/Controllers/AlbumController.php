@@ -88,7 +88,7 @@ class AlbumController extends Controller
         //
         // $album_f = Album::find($album);
         // return view('albums.single')->withAlbum($album_f);
-        return view('albums.single')->withAlbum($album);
+        return view('albums.single')->withAlbum($album)->withReviewCount($album->reviews()->count());
     }
 
     /**

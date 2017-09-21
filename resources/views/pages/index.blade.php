@@ -17,7 +17,7 @@
 		</div>
 		
 		@forelse($reviews as $review)
-		<div class="row">
+		<div class="row pad-round">
 			<div class="col-md-6 col-md-offset-1">
 				<img src="{{route('filefetch', [$review->album->cover])}}" alt="{{$review->album->title}} artwork" class="review_img">
 			</div>

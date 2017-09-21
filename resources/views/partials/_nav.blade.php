@@ -29,12 +29,17 @@
                         @guest
                             <li><a href="{{route('contact.show')}}">Contact Us</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                           <li class="dropdown">
+                                <a href="#" class="dropdown-toggle pad" data-toggle="dropdown" role="button" aria-expanded="false" >
+                                    <img src="{{ route('filefetch', ['filename' => Auth::user()->avatar, 'admin' => 1]) }}" class="shrink">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="{{ route('admin.landing') }}">Home</a></li>
+                                    <li>
+                                        <a href="{{ route('account')}}">Account</a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

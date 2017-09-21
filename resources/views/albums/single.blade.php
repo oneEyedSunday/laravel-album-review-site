@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('main')
 
 @section('content')
 
@@ -9,7 +9,21 @@
 				<h4>{{$album->year}}</h4>
 				<p>{{$album->artist->name}}</p>
 				<img src="{{route('filefetch', [$album->cover])}}" alt="Album Art">
-				<p><a href="{{route('reviews.create', [$album])}}" class="btn btn-primary">Write Review</a></p>
+				<p class="text-muted spacing-top">
+					Number of reviews on album : {{ $reviewCount}}
+				</p>
+				<p>
+					@if($reviewCount)
+					<h4>Previous reviews: </h4>
+						@foreach($album->reviews as $arev)
+							<a href="{{ route('reviews.single', [$arev->id]) }}" class="btn btn-success">{{$arev->title}}</a>
+						@endforeach
+						<hr>
+						<a href="{{ route('reviews.create', [$album->id]) }}" class="btn btn-primary">Add Review</a>
+					@else
+						<a href="{{ route('reviews.create', [$album->id]) }}" class="btn btn-primary">Write Review</a>
+					@endif
+				</p>
 			</div>
 		</div>
 	</div>

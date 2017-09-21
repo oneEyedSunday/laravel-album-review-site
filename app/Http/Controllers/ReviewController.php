@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Review;
 use App\Album;
 use Illuminate\Http\Request;
+use Auth;
 
 class ReviewController extends Controller
 {
@@ -21,7 +22,7 @@ class ReviewController extends Controller
     public function index()
     {
         //
-        $reviews = Review::all();
+        $reviews = Review::paginate(10);
         return view('reviews.index')->withReviews($reviews);
     }
 
@@ -54,6 +55,7 @@ class ReviewController extends Controller
         $review->title = $request->title;
         $review->body = $request->body;
         $review->album_id = $request->album;
+        $review->author_id = Auth::user()->id;
         $review->save();
         return redirect()->route('reviews.single', [$review->id]);
     }
@@ -79,6 +81,7 @@ class ReviewController extends Controller
     public function edit(Review $review)
     {
         //
+        return view('reviews.edit')->withReview($review);
     }
 
     /**
@@ -91,6 +94,20 @@ class ReviewController extends Controller
     public function update(Request $request, Review $review)
     {
         //
+        //dd($review);
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'album' => 'required|exists:albums,id',
+            'body' => 'required|min:20'
+        ]);
+
+        $review->title = $request->title;
+        $review->body = $request->body;
+        $review->author_id = Auth::user()->id;
+        $review->update();
+        //dd($review);
+        return redirect()->route('reviews.single', [$review->id]);
+
     }
 
     /**
@@ -101,6 +118,19 @@ class ReviewController extends Controller
      */
     public function destroy(Review $review)
     {
-        //
+        $title = $review->title; 
+        $review->album()->detach();
+
+        $review->author()->detach();
+
+        $review->delete();
+
+        Session::flash('success', 'The review, {$review->title} was successfully deleted.');
+        return redirect()->route('reviews.index');
+    }
+
+    public function getDelete(Review $review){
+        // dd($review);
+        return view('reviews.delete_confirm')->withReview($review);
     }
 }

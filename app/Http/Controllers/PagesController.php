@@ -11,7 +11,7 @@ class PagesController extends Controller
 {
     //
     public function index(){
-    	$reviews = Review::paginate(5);
+    	$reviews = Review::orderBy('created_at', 'desc')->paginate(5);
     	return view('pages.index')->withReviews($reviews);
     }
 

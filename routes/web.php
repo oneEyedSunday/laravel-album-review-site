@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('test', function(){ return \App\Review::find(1)->author;});
 
+Route::get('admin', 'UserController@index')->name('admin.landing');
 
 Auth::routes();
 
@@ -21,8 +23,10 @@ Route::get('/', 'PagesController@index')->name('landing');
 
 
 
-
 Route::prefix('admin')->group(function(){
+	
+	Route::get('profile','UserController@getProfile')->name('account');
+	Route::post('profile','UserController@postProfile')->name('account.update');
 	Route::get('artists/create', 'ArtistController@create')->name('artists.create');
 	Route::post('artists/create', 'ArtistController@store')->name('artists.store');
 	Route::get('artists', 'ArtistController@index')->name('artists.index');
@@ -54,11 +58,8 @@ Route::prefix('admin/reviews')->group(function(){
 	Route::post('create', 'ReviewController@store')->name('reviews.store');
 	Route::get('', 'ReviewController@index')->name('reviews.index');
 	Route::get('{review}', 'ReviewController@show')->name('reviews.single');
+	Route::get('edit/{review}', 'ReviewController@edit')->name('reviews.edit');
+	Route::post('edit/{review}', 'ReviewController@update')->name('reviews.update');
+	Route::get('delete/{review}', 'ReviewController@getDelete')->name('reviews.confirm');
+	Route::delete('delete/{review}','ReviewController@destroy')->name('reviews.delete');
 });
-
-Route::prefix('admin')->group(function(){
-	Route::get('profile','UserController@getProfile')->name('account');
-
-	Route::post('profile','UserController@postProfile')->name('account.update');
-});
-

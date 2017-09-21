@@ -18,6 +18,7 @@ class CreateReviewsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->integer('album_id')->unsigned();
+            $table->integer('author_id')->unsigned();
             $table->timestamps();
         });
     }

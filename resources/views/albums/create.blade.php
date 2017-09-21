@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('main')
 
 @section('title', 'Create Album')
 
@@ -30,15 +30,15 @@
 								<label for="artist" class="col-md-4 control-label">Artist</label>
 								<div class="col-md-6">
 								<select name="artist" id="artist" class="form-control" required>
-								@if($fill)
-										<option value="{{$fill->id}}">{{$fill->name}}</option>
-								@else
-									<option value="">Select Artist</option>
-									@foreach($artists as $artist)
-										<option value="{{$artist->id}}">{{$artist->name}}</option>
-									@endforeach
+									@if($fill)
+											<option value="{{$fill->id}}">{{$fill->name}}</option>
+									@else
+										<option value="">Select Artist</option>
+										@foreach($artists as $artist)
+											<option value="{{$artist->id}}">{{$artist->name}}</option>
+										@endforeach
+									@endif
 								</select>
-								@endif
 
 								@if($errors->has('artist'))
 									<span class="help-block"><strong>{{$errors->first('artist')}}</strong></span>
@@ -67,7 +67,11 @@
 							</div>
 
 							<div class="form-group">
-								<div class="col-md-6 col-md-offset-4"><button type="submit" class="btn btn-primary"><i class="fa fa-square-o fa-lg">Create Album</i></button></div>
+								<div class="col-md-6 col-md-offset-4"><button type="submit" class="btn btn-primary"><i class="fa fa-check fa-lg">Create Album</i></button>
+								@if(!$fill)
+								<a href="{{route('artists.create')}}" class="btn btn-success">Add the artist</a>
+								@endif
+								</div>
 							</div>
 						</form>
 					</div>
