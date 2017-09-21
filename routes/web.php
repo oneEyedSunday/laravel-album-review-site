@@ -14,6 +14,8 @@
 
 Auth::routes();
 
+Route::get('contact','PagesController@getContact')->name('contact.show');
+Route::post('contact', 'PagesController@postContact')->name('contact.post');
 Route::get('{review}', 'PagesController@show')->name('public.review');
 Route::get('/', 'PagesController@index')->name('landing');
 
@@ -34,12 +36,18 @@ Route::prefix('admin/albums')->group(function(){
 	Route::get('{album}', 'AlbumController@show')->name('albums.single');
 });
 
-Route::get('/upload/{filename}', function($filename){
-	$path = storage_path('app/public/uploads/album_art/' . $filename);
+Route::get('/upload/{filename}/{admin?}', function($filename, $admin = 0){
+	if ($admin){
+		$path = storage_path('app/public/uploads/admin/' . $filename);
+	}else {
+		$path = storage_path('app/public/uploads/album_art/' . $filename);
+	}
+	
 	$file = \File::get($path);
 	$response = Response::make($file, 200);
 	return $response;
 })->name('filefetch');
+
 
 Route::prefix('admin/reviews')->group(function(){
 	Route::get('create/{album}', 'ReviewController@create')->name('reviews.create');
@@ -47,3 +55,10 @@ Route::prefix('admin/reviews')->group(function(){
 	Route::get('', 'ReviewController@index')->name('reviews.index');
 	Route::get('{review}', 'ReviewController@show')->name('reviews.single');
 });
+
+Route::prefix('admin')->group(function(){
+	Route::get('profile','UserController@getProfile')->name('account');
+
+	Route::post('profile','UserController@postProfile')->name('account.update');
+});
+

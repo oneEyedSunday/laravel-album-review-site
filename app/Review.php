@@ -12,4 +12,8 @@ class Review extends Model
     public function album(){
     	return $this->belongsTo('App\Album');
     }
+
+    public function author(){
+    	return $this->belongsTo('App\User');
+    }
 }

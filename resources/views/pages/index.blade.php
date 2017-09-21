@@ -1,9 +1,8 @@
-@extends('layouts.app')
+@extends('main')
 
 
 @section('content')
 
-	<div class="container">
 		<div class="row">
 			<div class="col-lg">
 				<div class="jumbotron">
@@ -36,6 +35,5 @@
 		@endforelse
 
 		{{$reviews->links()}}
-	</div>
 
 @endsection
