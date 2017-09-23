@@ -15,13 +15,14 @@
 							<img src="{{route('filefetch', [$review->album->cover])}}" alt="{{$review->album->name}}'s cover art" class="display_review_img">
 							</div>
 							<div class="col-md-5 public_text">
+								<h4>{{$review->album->title}}</h4>
 								<p>{{$review->body}}</p>
 							</div>
 						</div>	
 				</div>
 
 				<div class="panel-footer">
-					<h4 class="panel_footer_text">More reviews of {{$review->album->artist->name}} click <a href="#" class="btn btn-more">here</a></h4>
+					<h4 class="panel_footer_text">More reviews of <strong>{{$review->album->artist->name}}</strong> click <a href="{{route('reviews.more', [$review->album->artist->id])}}" class="btn btn-more">here</a></h4>
 				</div>
 			</div>
 		</div>

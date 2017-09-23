@@ -27,6 +27,18 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @guest
+                            <li>
+                               {{--  {!! Form::open(['url' => ["/"], 'class' => "form navbar-form navbar-right searchform"]) !!}
+                                    {!! Form::text('search', null, ["required", "class" => "form-control", "placeholder" => "Search for review..."]) !!}
+                                    {!! Form::submit("Search", ["class" => "btn btn-default"]) !!}
+                                {!! Form::close() !!} --}}
+                                <form action="{{route('reviews.search')}}" method="GET">
+                                    <div class="form navbar-form navbar-right">
+                                        <input type="text" name="search_text" class="form-control" placeholder="Search">
+                                        <span class=""><button type="submit"><span class="fa fa-search"></span></button></span>
+                                    </div>
+                                </form>
+                            </li>
                             <li><a href="{{route('contact.show')}}">Contact Us</a></li>
                         @else
                            <li class="dropdown">

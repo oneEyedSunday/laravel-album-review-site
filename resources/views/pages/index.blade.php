@@ -10,7 +10,7 @@
 						Welcome to Hip Hop Headz
 					</p>
 					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus aspernatur pariatur quisquam, ex neque inventore consectetur aut laboriosam sint tempore esse praesentium amet maiores ullam quae officiis voluptatum ipsum id?
+						We review your favorite albums, give you the expert verdict - were they that good or nostalgia is blurring your senses. Join us and have more weapons in your armory the next time you go to the barbers' shop to argue if Illmatic was beter than Ready To Die.
 					</p>
 				</div>
 			</div>
@@ -18,10 +18,13 @@
 		
 		@forelse($reviews as $review)
 		<div class="row pad-round">
-			<div class="col-md-6 col-md-offset-1">
+			<div class="col-md-4">
 				<img src="{{route('filefetch', [$review->album->cover])}}" alt="{{$review->album->title}} artwork" class="review_img">
 			</div>
-			<div class="col-lg-3 col-lg-offset-1">
+			<div class="col-md-8">
+				<h3>{{$review->album->artist->name}}</h3>
+				<h4>{{$review->album->title}}</h4>
+				<p><strong>BY:</strong>  {{$review->author->name}}</p>
 				<p>{{$review->title}}</p>
 				<a href="{{route('public.review', [$review->id])}}" class="btn btn-primary">Read Review</a>
 			</div>
@@ -33,7 +36,9 @@
 				</div>
 			</div>
 		@endforelse
-
-		{{$reviews->links()}}
+		<div class="text-center">
+			{{$reviews->links()}}
+		</div>
+		
 
 @endsection

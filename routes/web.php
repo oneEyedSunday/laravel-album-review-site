@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('test', function(){ return \App\Review::find(1)->author;});
+Route::get('search', 'SearchController@search')->name('reviews.search');
+
+Route::get('allreviews/{artist}', 'SearchController@moreFromArtist')->name('reviews.more');
 
 Route::get('admin', 'UserController@index')->name('admin.landing');
 
